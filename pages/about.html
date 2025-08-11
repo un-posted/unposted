@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEGT3V5TLE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-FEGT3V5TLE');
+</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | Unposted</title>
+    <meta property="og:image" content="https://un-posted.github.io/unposted/images/moon.png" />
+  <link rel="icon" href="favicon-moon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --main-color: #F7C843;
+      --text-dark: #2e2e2e;
+      --text-light: #666;
+      --bg: #fdfcf9;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text-dark);
+      line-height: 1.7;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: white;
+      border-bottom: 1px solid #eee;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+
+    .navbar-logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--main-color);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-dark);
+      transition: all 0.3s ease;
+      padding: 0.5rem 0;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: var(--main-color);
+    }
+
+    .nav-links a.active {
+      color: var(--main-color);
+      font-weight: 600;
+    }
+
+    .cta-btn {
+      background: var(--main-color);
+      color: var(--text-dark);
+      padding: 0.7rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border: 2px solid var(--main-color);
+    }
+
+    .cta-btn:hover {
+      background: transparent;
+      color: var(--main-color);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 1rem;
+      }
+
+      .navbar-right {
+        gap: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .nav-links a {
+        font-size: 0.9rem;
+      }
+
+      .cta-btn {
+        display: none;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+    }
+
+    @media (max-width: 600px) {
+      .navbar-right {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-end;
+      }
+
+      .nav-links {
+        gap: 0.8rem;
+      }
+
+      .cta-btn {
+        padding: 0.5rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Container */
+    .container {
+      padding: 3rem 1.5rem;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    .about-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+    }
+
+    .about-text {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 1.8rem;
+      line-height: 1.8;
+    }
+
+    .highlight {
+      color: var(--main-color);
+      font-weight: bold;
+    }
+
+    .quote {
+      font-style: italic;
+      color: var(--text-light);
+      border-left: 4px solid var(--main-color);
+      padding-left: 1.2rem;
+      background: rgba(247, 200, 67, 0.05);
+      padding: 1.2rem 1.5rem;
+      border-radius: 8px;
+      margin: 2.5rem 0;
+      font-size: 1.1rem;
+    }
+
+    .signature {
+      margin-top: 2.5rem;
+      text-align: right;
+      font-style: italic;
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+      color: var(--text-light);
+      background: #fff;
+      border-top: 1px solid #eee;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 768px) {
+      .about-title {
+        font-size: 2rem;
+      }
+
+      .about-text {
+        font-size: 1rem;
+      }
+
+      .quote {
+        font-size: 1rem;
+      }
+    }
+
+        /* Modal styles */
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  position: relative;
+  box-shadow: var(--card-shadow);
+}
+
+#close-modal {
+  position: absolute;
+  top: 0.5rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--main-color);
+  cursor: pointer;
+  font-weight: 700;
+  transition: color 0.3s ease;
+}
+
+#close-modal:hover {
+  color: #f7a600;
+}
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav class="navbar">
+    <a class="navbar-logo" href="../index.html">
+      <span>🌙</span>
+      <span>Unposted</span>
+    </a>
+    <div class="navbar-right">
+      <div class="nav-links">
+        <a href="../index.html">Home</a>
+        <a href="#" onclick="showComingSoon(); return false;">Stories</a>
+        <a href="./about.html" class="active">About</a>
+      </div>
+      <a href="./write-your-story.html" class="cta-btn">✨Write You Story</a>
+      <a href="#" id="subscribe-btn-navbar" class="cta-btn" style="background:#f0e342; color:#222; border-color:#f0e342;">📬Subscribe</a>
+    </div>
+  </nav>
+
+  <!-- ✅ Page Content -->
+  <div class="container">
+    <div class="about-title">🌙 About Unposted</div>
+
+    <p class="about-text">
+      <span class="highlight">Unposted</span> is your personal corner of the internet — a safe place for the words you’ve been keeping in your drafts, your notes, or your heart.  
+      Nothing here needs to be perfect or polished — it’s about <em>writing what you feel</em>, <em>sharing what matters</em>, and <em>letting your voice be heard</em>.
+    </p>
+
+    <p class="about-text">
+      Maybe it’s something you’ve never shared before, a memory you want to keep alive, or a thought you don’t want to forget — <strong>Unposted</strong> is where it can live freely.
+    </p>
+
+    <p class="about-text">
+      Some pieces will make you think. Others will make you feel. All of them carry something real.  
+      What connects them all is honesty — raw, warm, and unapologetically human.
+    </p>
+
+    <div class="quote">
+      “Some stories aren’t meant to stay hidden. They’re meant to find someone — maybe you.”
+    </div>
+
+    <p class="about-text">
+      Whether you’re here to read, write, reflect, or simply wander — welcome. Let the words meet you exactly where you are.
+    </p>
+
+    <div class="signature">— The Unposted Team</div>
+  </div>
+
+  <!-- ✅ Footer -->
+  <footer>
+    <p style="margin-top:10px; font-size:1.1em;font-weight: bold;">
+        🤫 Shhh… 
+        <img src="https://hitwebcounter.com/counter/counter.php?page=21359021&style=0006&nbdigits=6&type=ip&initCount=0" 
+             alt="Visitor Counter" 
+             style="vertical-align:middle; margin:0 5px;"/>
+        Unposters already found us.
+    </p>
+    &copy; 2025 Unposted — Because some words are too good to stay hidden.
+        <!-- hitwebcounter Code START -->
+  </footer>
+<!-- Newsletter Subscription Modal -->
+<div id="subscribe-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true" style="display:none;">
+  <div class="modal-content" role="document">
+    <button id="close-modal" aria-label="Close Subscription Form">&times;</button>
+    <h2 id="modal-title" style="color: var(--main-color); margin-bottom: 1rem;">Subscribe to Our Newsletter</h2>
+    <form id="subscribe-form" action="https://formsubmit.co/unposted.infos@gmail.com" method="POST" target="_blank">
+      <label for="email-subscribe" style="font-weight:600;">Email Address <span style="color:red;">*</span></label>
+      <input type="email" id="email-subscribe" name="email" placeholder="Enter your email" required style="padding:0.7rem 1rem; border-radius:8px; border:1.5px solid #ccc; font-size:1rem; width:100%; margin-bottom:1rem;"/>
+      
+      <!-- Anti-spam honeypot -->
+      <input type="text" name="_honey" style="display:none" />
+      <input type="hidden" name="_captcha" value="false" />
+      <!-- Disable captcha for simplicity -->
+      <input type="hidden" name="_captcha" value="false" />
+
+      <!-- Redirect to thank you page or back to home -->
+      <input type="hidden" name="_next" value="https://un-posted.github.io/unposted/pages/thank-you.html" />
+      
+      <button type="submit" style="background: var(--main-color); color: var(--text-dark); padding: 0.8rem 1.5rem; font-weight:700; border:none; border-radius:8px; cursor:pointer; width:100%;">Subscribe</button>
+    </form>
+  </div>
+</div>
+<script>
+  const modal = document.getElementById('subscribe-modal');
+  const btnNavbar = document.getElementById('subscribe-btn-navbar');
+  const closeBtn = document.getElementById('close-modal');
+
+  function openModal() {
+    modal.style.display = 'flex';
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeModal() {
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  btnNavbar.addEventListener('click', e => {
+    e.preventDefault();
+    openModal();
+  });
+
+
+  closeBtn.addEventListener('click', () => {
+    closeModal();
+  });
+
+  // Close modal if clicked outside content
+  modal.addEventListener('click', e => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+
+  // Optional: Close modal with Escape key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && modal.style.display === 'flex') {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) e.preventDefault();
+});
+
+
+function showComingSoon() {
+  Swal.fire({
+    title: '🚧 Coming Soon!',
+    text: 'We\'re working hard on the Stories section — stay tuned!',
+    icon: 'info',
+    confirmButtonText: 'Got it!',
+    confirmButtonColor: '#3085d6',
+    
+  });
+}
+</script>
+</body>
+</html>
+
+
