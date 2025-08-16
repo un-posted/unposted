@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEGT3V5TLE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FEGT3V5TLE');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Unposted | The Boy Who Counted the Stars</title>
+<meta name="description" content="The Boy Who Counted the Stars — a touching story of Yassine, a boy from southern Tunisia whose love for the night sky and broken things leads him to discover healing, science, and the unseen connections of life.">
+<meta property="og:title" content="Unposted | The Boy Who Counted the Stars">
+<meta property="og:description" content="From desert nights to hospital halls, follow Yassine’s journey of counting stars and heartbeats — where science, faith, and healing intertwine.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://un-posted.github.io/unposted/images/moon-up.png">
+<link rel="icon" href="favicon-moon.ico" type="image/x-icon" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --main-color: #F7C843; --text-dark: #2e2e2e; --text-light: #666; --bg: #fdfcf9; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Cairo', serif; background: var(--bg); color: var(--text-dark); line-height: 1.7; }
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: white; border-bottom: 1px solid #eee; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+.navbar-logo { font-size: 1.5rem; font-weight: bold; color: var(--main-color); text-decoration: none; display: flex; align-items: center; gap: 0.5rem;}
+.navbar-right { display: flex; align-items: center; gap: 2rem;}
+.nav-links { display: flex; gap: 2rem;}
+.nav-links a { text-decoration: none; color: var(--text-dark); transition: all 0.3s ease; padding: 0.5rem 0;}
+.nav-links a:hover { color: var(--main-color);}
+.cta-btn { background: var(--main-color); color: var(--text-dark); padding: 0.7rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; border: 2px solid var(--main-color);}
+.cta-btn:hover { background: transparent; color: var(--main-color);}
+.article-container { max-width: 800px; margin: 3rem auto; padding: 0 2rem; text-align: center;}
+.article-emoji { font-size: 3.5rem; margin-bottom: 1rem; animation: float 4s ease-in-out infinite; }
+.article-category { display: inline-block; background: #ff9f1c; color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1.5rem;}
+.article-title { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 600;}
+.article-meta { color: var(--text-light); font-size: 1rem; margin-bottom: 2.5rem;}
+.article-content { font-size: 1.15rem; text-align: left; line-height: 1.8;}
+.article-content p { margin-bottom: 1.8rem;}
+.article-nav { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #eee; display: flex; justify-content: space-between;}
+.nav-btn { background: var(--main-color); color: white; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none;}
+.nav-btn:hover { background: #e6b33a;}
+.article-content blockquote {
+      font-style: italic;
+      color: var(--text-light);
+      border-left: 4px solid var(--main-color);
+      padding-left: 1.5rem;
+      margin: 2.5rem 0;
+      font-size: 1.2rem;
+      background: rgba(247, 200, 67, 0.05);
+      padding: 1.5rem;
+      border-radius: 8px;
+}
+@media (max-width: 768px) { .navbar { padding: 1rem; } .navbar-right { gap: 1rem; } .nav-links { gap: 1rem; } .nav-links a { font-size: 0.9rem; } .cta-btn { display: none; } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+footer { text-align: center; padding: 2rem; background: #fff; font-size: 0.9rem; color: var(--text-light);}
+
+/* Modal styles */
+  .modal {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .modal-content {
+    
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: var(--card-shadow);
+  }
+
+  #close-modal {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--main-color);
+    cursor: pointer;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+
+  #close-modal:hover {
+    color: #f7a600;
+  }
+
+
+  .sponsor-block {
+    background: #fff9e6; /* very soft yellow */
+    border: 1.5px solid #f7c843; /* main-color */
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin: 3rem 0;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 6px 15px rgba(247, 200, 67, 0.2);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .sponsor-block:hover {
+    box-shadow: 0 8px 20px rgba(247, 200, 67, 0.35);
+  }
+
+  .sponsor-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #b07f00; /* darker yellow */
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .sponsor-link img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .sponsor-link img:hover {
+    transform: scale(1.04);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  }
+
+  .sponsor-desc {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 480px) {
+    .sponsor-block {
+      padding: 0.8rem 1rem;
+      margin: 2rem 0;
+    }
+    .sponsor-desc {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a class="navbar-logo" href="../index.html">🌙 Unposted</a>
+  <div class="navbar-right">
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="./stories.html" class="active">Stories</a>
+      <a href="./about.html">About</a>
+    </div>
+    <a href="./write-your-story.html" class="cta-btn">✨Write</a>
+    <a href="#" id="subscribe-btn-navbar" class="cta-btn" style="background:#f0e342; color:#222;">📬Subscribe</a>
+  </div>
+</nav>
+
+<!-- Article -->
+<div class="article-container">
+  <div class="article-emoji">💫☄️❤️</div>
+  <div class="article-category">Personal</div>
+  <h1 class="article-title">The Boy Who Counted the Stars</h1>
+  <p style="margin-top:10px; font-size:1.1em;font-weight: bold;">
+          <img src="https://hitwebcounter.com/counter/counter.php?page=21403187&style=0006&nbdigits=5&type=ip&initCount=0" title="Counter Widget" Alt="Visit counter For Websites" border="0" />
+    </p>
+  <div class="article-meta">By <strong>Yassin Stardust</strong> | August 15, 2025</div>
+
+  <div class="article-content">
+    <p>In the far south of Tunisia, in a small town where the desert begins to whisper its endless songs, lived a boy named yassine. His home was a cluster of whitewashed houses huddled against the heat, where every dawn smelled faintly of sand and olive trees.</p>
+
+    <p>From an early age, Yassine had two strange habits: he loved watching the night sky until sleep stole his gaze, and he collected small, broken things—a lizard’s shed skin, the husk of a beetle, a cracked date seed. To his mother, they were just bits of trash. But to Yassine, they were evidence. Evidence that life transformed, adapted, and survived.</p>
+
+    <p>One summer night, his grandmother—who was known in the village as a dooma a woman of deep baraka—sat beside him beneath the stars. She told him,
+
+    <br><blockquote>“Every soul is like a drop of water in the great well of creation. Some drops are meant to heal the others.”</blockquote> 
+    
+      <!-- Sponsor Block 1 -->
+  <div class="sponsor-block" role="complementary" aria-label="Sponsored content">
+    <div class="sponsor-label">Sponsored</div>
+    <a href="https://un-posted.github.io/unposted/index.html" target="_blank" rel="noopener noreferrer" class="sponsor-link" aria-label="Visit Sponsor 1 website">
+      <img src="../images/banner-2.png" alt="Sponsor 1 banner" />
+    </a>
+    <p class="sponsor-desc">
+Support our writers and reach engaged readers — partner with us today!
+    </p>
+  </div>
+
+    She leaned close, her eyes reflecting the moon.
+    
+    <br> <blockquote>“If you listen carefully to the world, it will tell you what you are here to do.”</blockquote></p>
+    
+    <p style="text-align: center;"><strong>Yassine listened.</strong></p>
+
+    <p>The world spoke in the hum of cicadas, in the way the desert wind curled through the palm fronds, in the pulse of his own wrist beneath his fingers. He began to wonder: What is this pulse? Why does it beat? Why does it stop? He started asking questions of the old town doctor, who answered with laughter and diagrams drawn in the sand: the chambers of the heart, the rivers of the veins, the map of the human body as a living oasis.</p>
+
+    <p>When Yassine turned twelve his father took him to the mystical desert village of Aghraba It was his first time seeing the vast desert and he stood on the shore thinking it looked like the night sky had spilled onto the earth. He decided then that the body, like the sand sea must have its own tides, its own moon-pulled mysteries.</p>
+
+    <p>Science became his prayer. He read about neurons and synapses , supernovae and black holes . He memorized the names of the prophets  as if they were sacred verses from ancient holy books. But he also kept his grandmother’s words in his heart—because he sensed that healing was not only about fixing tissue and bone, but about touching the unseen, the place where fear and hope meet.</p>
+
+    <p>Years later, when Yassine finally stood in a white coat in a crowded Monastir hospital, he found that his most important tools were not just the stethoscope around his neck or the knowledge in his mind. It was the way he could take a patient’s hand and feel, just for a moment, the pulse that connected them both to the same well of creation.</p>
+
+    <!-- Sponsor Block 2 -->
+  <div class="sponsor-block" role="complementary" aria-label="Sponsored content">
+    <div class="sponsor-label">Advertisement</div>
+    <a href="https://un-posted.github.io/unposted/index.html" target="_blank" rel="noopener noreferrer" class="sponsor-link" aria-label="Visit Sponsor 2 website">
+      <img src="../images/banner-2.png" alt="Sponsor 2 banner" />
+    </a>
+  </div>
+
+    <p>And sometimes, late at night after his shift, he would walk to the rooftop and look at the stars above the city’s haze. In each patient’s breath, in each healing moment, he still heard the desert wind. It was telling him the same thing it always had:Your hands are the bridge between what is seen and what is unseen.</p>
+
+    <p>And Yassine would smile, knowing he was still that boy counting the stars—only now, he counted heartbeats too</p>
+  </div>
+
+  <!-- Share button -->
+  <div style="margin: 2rem 0;">
+    <a href="#" id="fb-share-btn" class="nav-btn" style="background:#3b5998;">Share on Facebook</a>
+  </div>
+
+  <!-- Article Navigation -->
+  <div class="article-nav">
+    <a href="stories.html" class="nav-btn">← All Stories</a>
+    <a href="../index.html" class="nav-btn">🏠 Home</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>🤫 Shhh… <img src="https://hitwebcounter.com/counter/counter.php?page=21373760&style=0006&nbdigits=5&type=ip&initCount=0" 
+             alt="Visitor Counter" 
+             style="vertical-align:middle; margin:0 5px;"/>Unposters already found us.</p>
+  &copy; 2025 Unposted — Because some words are too good to stay hidden.
+</footer>
+<!-- Newsletter Subscription Modal -->
+  <div id="subscribe-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true" style="display:none;">
+    <div class="modal-content" role="document">
+      <button id="close-modal" aria-label="Close Subscription Form">&times;</button>
+      <h2 id="modal-title" style="color: var(--main-color); margin-bottom: 1rem;">Subscribe to Our Newsletter</h2>
+      <form id="subscribe-form" action="https://formsubmit.co/unposted.infos@gmail.com" method="POST" target="_blank">
+        <label for="email-subscribe" style="font-weight:600;">Email Address <span style="color:red;">*</span></label>
+        <input type="email" id="email-subscribe" name="email" placeholder="Enter your email" required style="padding:0.7rem 1rem; border-radius:8px; border:1.5px solid #ccc; font-size:1rem; width:100%; margin-bottom:1rem;"/>
+        
+        <!-- Anti-spam honeypot -->
+        <input type="text" name="_honey" style="display:none" />
+        <input type="hidden" name="_captcha" value="false" />
+        <!-- Disable captcha for simplicity -->
+        <input type="hidden" name="_captcha" value="false" />
+
+        <!-- Redirect to thank you page or back to home -->
+        <input type="hidden" name="_next" value="https://un-posted.github.io/unposted/pages/thank-you.html" />
+        
+        <button type="submit" style="background: var(--main-color); color: var(--text-dark); padding: 0.8rem 1.5rem; font-weight:700; border:none; border-radius:8px; cursor:pointer; width:100%;">Subscribe</button>
+      </form>
+    </div>
+  </div>
+<script>
+
+    const modal = document.getElementById('subscribe-modal');
+    const btnNavbar = document.getElementById('subscribe-btn-navbar');
+    const closeBtn = document.getElementById('close-modal');
+
+    function openModal() {
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    btnNavbar.addEventListener('click', e => {
+      e.preventDefault();
+      openModal();
+    });
+
+
+    closeBtn.addEventListener('click', () => {
+      closeModal();
+    });
+
+    // Close modal if clicked outside content
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Optional: Close modal with Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        closeModal();
+      }
+    });
+
+  document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) e.preventDefault();
+    });
+const fbBtn = document.getElementById('fb-share-btn');
+fbBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  const pageUrl = encodeURIComponent(window.location.href);
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`, 'fbShareWindow', 'width=600,height=400');
+});
+</script>
+</body>
+</html>

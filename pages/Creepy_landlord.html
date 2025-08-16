@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEGT3V5TLE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FEGT3V5TLE');
+</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Unposted | Creepy Landlord</title>
+<meta name="description" content="Creepy Landlord — a chilling true story of a family’s encounter with a landlord who crossed dangerous boundaries, turning a new home into a nightmare.">
+<meta property="og:title" content="Unposted | Creepy Landlord">
+<meta property="og:description" content="A travel story that takes a dark turn — from moving into a duplex to facing an unsettling and disturbing landlord. A real experience that still haunts.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://un-posted.github.io/unposted/images/moon-up.png">
+
+<link rel="icon" href="favicon-moon.ico" type="image/x-icon" />
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root { --main-color: #F7C843; --text-dark: #2e2e2e; --text-light: #666; --bg: #fdfcf9; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Cairo', serif; background: var(--bg); color: var(--text-dark); line-height: 1.7; }
+.navbar { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: white; border-bottom: 1px solid #eee; box-shadow: 0 2px 4px rgba(0,0,0,0.02);}
+.navbar-logo { font-size: 1.5rem; font-weight: bold; color: var(--main-color); text-decoration: none; display: flex; align-items: center; gap: 0.5rem;}
+.navbar-right { display: flex; align-items: center; gap: 2rem;}
+.nav-links { display: flex; gap: 2rem;}
+.nav-links a { text-decoration: none; color: var(--text-dark); transition: all 0.3s ease; padding: 0.5rem 0;}
+.nav-links a:hover { color: var(--main-color);}
+.cta-btn { background: var(--main-color); color: var(--text-dark); padding: 0.7rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; border: 2px solid var(--main-color);}
+.cta-btn:hover { background: transparent; color: var(--main-color);}
+.article-container { max-width: 800px; margin: 3rem auto; padding: 0 2rem; text-align: center;}
+.article-emoji { font-size: 3.5rem; margin-bottom: 1rem; animation: float 4s ease-in-out infinite; }
+.article-category { display: inline-block; background: #ff9f1c; color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 700; margin-bottom: 1.5rem;}
+.article-title { font-size: 2.5rem; margin-bottom: 1rem; font-weight: 600;}
+.article-meta { color: var(--text-light); font-size: 1rem; margin-bottom: 2.5rem;}
+.article-content { font-size: 1.15rem; text-align: left; line-height: 1.8;}
+.article-content p { margin-bottom: 1.8rem;}
+.article-nav { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #eee; display: flex; justify-content: space-between;}
+.nav-btn { background: var(--main-color); color: white; padding: 0.8rem 1.5rem; border-radius: 8px; text-decoration: none;}
+.nav-btn:hover { background: #e6b33a;}
+.article-content blockquote {
+      font-style: italic;
+      color: var(--text-light);
+      border-left: 4px solid var(--main-color);
+      padding-left: 1.5rem;
+      margin: 2.5rem 0;
+      font-size: 1.2rem;
+      background: rgba(247, 200, 67, 0.05);
+      padding: 1.5rem;
+      border-radius: 8px;
+}
+@media (max-width: 768px) { .navbar { padding: 1rem; } .navbar-right { gap: 1rem; } .nav-links { gap: 1rem; } .nav-links a { font-size: 0.9rem; } .cta-btn { display: none; } }
+@keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+footer { text-align: center; padding: 2rem; background: #fff; font-size: 0.9rem; color: var(--text-light);}
+
+/* Modal styles */
+  .modal {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .modal-content {
+    
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 90%;
+    position: relative;
+    box-shadow: var(--card-shadow);
+  }
+
+  #close-modal {
+    position: absolute;
+    top: 0.5rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--main-color);
+    cursor: pointer;
+    font-weight: 700;
+    transition: color 0.3s ease;
+  }
+
+  #close-modal:hover {
+    color: #f7a600;
+  }
+
+
+  .sponsor-block {
+    background: #fff9e6; /* very soft yellow */
+    border: 1.5px solid #f7c843; /* main-color */
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin: 3rem 0;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 6px 15px rgba(247, 200, 67, 0.2);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .sponsor-block:hover {
+    box-shadow: 0 8px 20px rgba(247, 200, 67, 0.35);
+  }
+
+  .sponsor-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #b07f00; /* darker yellow */
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .sponsor-link img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+
+  .sponsor-link img:hover {
+    transform: scale(1.04);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  }
+
+  .sponsor-desc {
+    margin-top: 0.8rem;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 480px) {
+    .sponsor-block {
+      padding: 0.8rem 1rem;
+      margin: 2rem 0;
+    }
+    .sponsor-desc {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <a class="navbar-logo" href="../index.html">🌙 Unposted</a>
+  <div class="navbar-right">
+    <div class="nav-links">
+      <a href="../index.html">Home</a>
+      <a href="./stories.html" class="active">Stories</a>
+      <a href="./about.html">About</a>
+    </div>
+    <a href="./write-your-story.html" class="cta-btn">✨Write</a>
+    <a href="#" id="subscribe-btn-navbar" class="cta-btn" style="background:#f0e342; color:#222;">📬Subscribe</a>
+  </div>
+</nav>
+
+<!-- Article -->
+<div class="article-container">
+  <div class="article-emoji">😨</div>
+  <div class="article-category">Travel</div>
+  <h1 class="article-title">Creepy Landlord</h1>
+  <p style="margin-top:10px; font-size:1.1em;font-weight: bold;">
+          <img src="https://hitwebcounter.com/counter/counter.php?page=21403096&style=0006&nbdigits=5&type=ip&initCount=0" title="Counter Widget" Alt="Visit counter For Websites" border="0" />
+    </p>
+  <div class="article-meta">By <strong>Klm</strong> | August 14, 2025</div>
+
+  <div class="article-content">
+
+    <p>(So the names in this story are not used for privacy reasons)</p>
+
+    <p>Ever since I was little my family was always poor we lived in a small house and 2 years after living there we had to move my mom found a small 2 bedroom duplex right down the street I've never lived in a duplex so I didn't know how to feel but we kinda didn't have a choice we needed a place to stay so we moved in not to long after.</p>
+    
+    <p>I have a twin sister so me and her had to share a room and my 2 brothers had to share one while my mom had to sleep on the couch at first the landlord seemed nice and like your average old sweet guy until one day I come home from school with my sister and my mom is talking to the landlord (the school was right down the block so I could walk home from there with sister alone) </p>
+
+      <!-- Sponsor Block 1 -->
+  <div class="sponsor-block" role="complementary" aria-label="Sponsored content">
+    <div class="sponsor-label">Sponsored</div>
+    <a href="https://un-posted.github.io/unposted/index.html" target="_blank" rel="noopener noreferrer" class="sponsor-link" aria-label="Visit Sponsor 1 website">
+      <img src="../images/banner-2.png" alt="Sponsor 1 banner" />
+    </a>
+    <p class="sponsor-desc">
+Support our writers and reach engaged readers — partner with us today!
+    </p>
+  </div>
+    
+    <p>The landlord looked at me and said: <br><blockquote>"Your girls’ room is dirty, you need to clean it."</blockquote> At first I thought my mom told him he could go in there since he needed a extension cord but the look on my mom's face said differently I let it go me being a 12 year old I went inside a week or so later I come home to my mom she is angry come to find out that my mom had showerd and since she was home alone she just walked around our duplex in a towel</p>
+
+    <p>She told me that she went to my room so she could take a nap with just her towel on since she didn't have a bedroom and she woke up to a package on the dining room table she thought my older brother had brought it in but she asked him and it was the landlord so he basically used his key to open the door and leave a package on the kitchen table </p>
+    
+    <p>What happened a few weeks later shattered my view on men…</p>
+
+    <p>One of the other tenants were leaving the duplex and to be nice me and my mom were cleaning out the old apartment which was right above ours (you had to go outside to access the 2nd apartment) my mom's back was turned and she was cleaning some floor bords and I was looking out of the window down into the street when I felt a tap on my rear end I turn around and he has a curtain rod so he tapped my but with a curtain rod wen I looked at him he whisperd <br><blockquote>"I bet an older guy has never touched you with a 10 foot pole like that before."</blockquote></p>
+
+    <!-- Sponsor Block 2 -->
+  <div class="sponsor-block" role="complementary" aria-label="Sponsored content">
+    <div class="sponsor-label">Advertisement</div>
+    <a href="https://sponsor2.com" target="_blank" rel="noopener noreferrer" class="sponsor-link" aria-label="Visit Sponsor 2 website">
+      <img src="https://un-posted.github.io/unposted/index.html" alt="Sponsor 2 banner" />
+    </a>
+  </div>
+
+    <p>I felt like I was gonna throw up I ran down stiars to our duplex and sat in my room crying my sister walked in I told her what happened and we told my mom let's just say we went to the police and they said they couldn't do anything because he has no prior offenses but that they will call us if anything comes up I'm 17 now and they still have not called we moved not long after so..</p>
+    
+    <p style="text-align: center;"><strong>Creepy landlord, let’s not meet again.</strong></p>
+  </div>
+
+  <!-- Share button -->
+  <div style="margin: 2rem 0;">
+    <a href="#" id="fb-share-btn" class="nav-btn" style="background:#3b5998;">Share on Facebook</a>
+  </div>
+
+  <!-- Article Navigation -->
+  <div class="article-nav">
+    <a href="stories.html" class="nav-btn">← All Stories</a>
+    <a href="../index.html" class="nav-btn">🏠 Home</a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>🤫 Shhh… <img src="https://hitwebcounter.com/counter/counter.php?page=21373760&style=0006&nbdigits=5&type=ip&initCount=0" 
+             alt="Visitor Counter" 
+             style="vertical-align:middle; margin:0 5px;"/>Unposters already found us.</p>
+  &copy; 2025 Unposted — Because some words are too good to stay hidden.
+</footer>
+<!-- Newsletter Subscription Modal -->
+  <div id="subscribe-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true" style="display:none;">
+    <div class="modal-content" role="document">
+      <button id="close-modal" aria-label="Close Subscription Form">&times;</button>
+      <h2 id="modal-title" style="color: var(--main-color); margin-bottom: 1rem;">Subscribe to Our Newsletter</h2>
+      <form id="subscribe-form" action="https://formsubmit.co/unposted.infos@gmail.com" method="POST" target="_blank">
+        <label for="email-subscribe" style="font-weight:600;">Email Address <span style="color:red;">*</span></label>
+        <input type="email" id="email-subscribe" name="email" placeholder="Enter your email" required style="padding:0.7rem 1rem; border-radius:8px; border:1.5px solid #ccc; font-size:1rem; width:100%; margin-bottom:1rem;"/>
+        
+        <!-- Anti-spam honeypot -->
+        <input type="text" name="_honey" style="display:none" />
+        <input type="hidden" name="_captcha" value="false" />
+        <!-- Disable captcha for simplicity -->
+        <input type="hidden" name="_captcha" value="false" />
+
+        <!-- Redirect to thank you page or back to home -->
+        <input type="hidden" name="_next" value="https://un-posted.github.io/unposted/pages/thank-you.html" />
+        
+        <button type="submit" style="background: var(--main-color); color: var(--text-dark); padding: 0.8rem 1.5rem; font-weight:700; border:none; border-radius:8px; cursor:pointer; width:100%;">Subscribe</button>
+      </form>
+    </div>
+  </div>
+<script>
+const modal = document.getElementById('subscribe-modal');
+    const btnNavbar = document.getElementById('subscribe-btn-navbar');
+    const closeBtn = document.getElementById('close-modal');
+
+    function openModal() {
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+    }
+
+    btnNavbar.addEventListener('click', e => {
+      e.preventDefault();
+      openModal();
+    });
+
+
+    closeBtn.addEventListener('click', () => {
+      closeModal();
+    });
+
+    // Close modal if clicked outside content
+    modal.addEventListener('click', e => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Optional: Close modal with Escape key
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.style.display === 'flex') {
+        closeModal();
+      }
+    });
+
+  document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', e => {
+      if (e.ctrlKey && (e.key === 'u' || e.key === 'U')) e.preventDefault();
+    });
+
+const fbBtn = document.getElementById('fb-share-btn');
+fbBtn.addEventListener('click', function(e) {
+  e.preventDefault();
+  const pageUrl = encodeURIComponent(window.location.href);
+  window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`, 'fbShareWindow', 'width=600,height=400');
+});
+</script>
+</body>
+</html>
