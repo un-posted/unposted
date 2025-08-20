@@ -347,6 +347,337 @@ footer { text-align: center; padding: 2rem; background: #fff; font-size: 0.9rem;
 #subscribe-btn-navbar{
       display: none;
     }
+
+
+
+        /* Enhanced Comments Section Styles */
+    .comments-section {
+      max-width: 800px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .comments-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .comments-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin: 0;
+    }
+
+    .comments-count {
+      background: var(--main-color);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+
+    /* Comment Form Styles */
+    .comment-form {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .comment-form:hover {
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      border-color: var(--main-color);
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+      text-align: left;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+      background: #fafbfc;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--main-color);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(247, 200, 67, 0.1);
+    }
+
+    .form-textarea {
+      min-height: 100px;
+      resize: vertical;
+      font-family: inherit;
+    }
+
+    .character-count {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      text-align: right;
+      margin-top: 0.25rem;
+    }
+
+    .character-count.warning {
+      color: var(--warning-color);
+    }
+
+    .character-count.error {
+      color: var(--error-color);
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      background: var(--main-color);
+      color: white;
+      border: none;
+      padding: 0.875rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-width: 140px;
+      justify-content: center;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: #e6b33a;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(247, 200, 67, 0.3);
+    }
+
+    .submit-btn:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--text-dark);
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Comments List */
+    .comments-list {
+      position: relative;
+    }
+
+    .comments-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      padding: 3rem;
+      color: var(--text-light);
+    }
+
+    .loading-spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--border-color);
+      border-top: 3px solid var(--main-color);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    .comments-empty {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-light);
+      background: #f8fafc;
+      border-radius: 12px;
+      border: 2px dashed var(--border-color);
+    }
+
+    .comments-empty i {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      opacity: 0.5;
+    }
+
+    .comment-item {
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: slideIn 0.5s ease forwards;
+    }
+
+    .comment-item:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transform: translateY(-2px);
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .comment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .comment-author {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .author-avatar {
+      width: 36px;
+      height: 36px;
+      background: var(--main-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      color: white;
+      font-size: 0.875rem;
+    }
+
+    .author-name {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .comment-date {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .comment-content {
+      color: var(--text-dark);
+      line-height: 1.6;
+      word-wrap: break-word;
+      text-align: left;
+    }
+
+    /* Success/Error Messages */
+    .message {
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      animation: slideIn 0.3s ease;
+    }
+
+    .message-success {
+      background: #dcfce7;
+      border: 1px solid #bbf7d0;
+      color: #166534;
+    }
+
+    .message-error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+    }
+
+    .message-warning {
+      background: #fef3c7;
+      border: 1px solid #fde68a;
+      color: #92400e;
+    }
+
+    /* Retry Button */
+    .retry-btn {
+      background: var(--main-color);
+      color: var(--text-dark);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 0.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .comments-section {
+        padding: 0 0.5rem;
+      }
+
+      .comment-form {
+        padding: 1rem;
+      }
+
+      .comment-item {
+        padding: 1rem;
+      }
+
+      .comment-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .submit-btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
 </style>
 </head>
 <body>
@@ -481,6 +812,478 @@ Support our writers and reach engaged readers — partner with us today!
   <div style="margin: 2rem 0;">
     <a href="#" id="fb-share-btn" class="nav-btn" style="background:#3b5998;">Share on Facebook</a>
   </div>
+
+
+
+<!-- Enhanced Comments Section -->
+<div class="comments-section">
+  <div class="comments-header">
+    <h2 class="comments-title">💬 Discussion</h2>
+    <span class="comments-count" id="comments-count">0</span>
+  </div>
+
+  <!-- Comments List -->
+  <div class="comments-list" id="comments-list">
+    <div class="comments-loading" id="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading comments...</p>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Comment Form -->
+  <div class="comment-form">
+    <div class="form-group">
+      <label class="form-label" for="comment-name">
+        <i class="fas fa-user"></i> Name (optional)
+      </label>
+      <input 
+        type="text" 
+        id="comment-name" 
+        class="form-input"
+        placeholder="Enter your name..."
+        maxlength="50"
+      />
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label" for="comment-text">
+        <i class="fas fa-comment"></i> Your Comment <span style="color: #ef4444;">*</span>
+      </label>
+      <textarea 
+        id="comment-text"
+        class="form-input form-textarea"
+        placeholder="Share your thoughts..."
+        maxlength="500"
+        required
+      ></textarea>
+      <div class="character-count" id="char-count">0 / 500</div>
+    </div>
+
+    <button id="comment-submit" class="submit-btn">
+      <i class="fas fa-paper-plane"></i>
+      <span id="submit-text">Post Comment</span>
+    </button>
+  </div>
+
+<script>
+  const SHEET_URL = 'https://script.google.com/macros/s/AKfycbyDt1OCeZoiRPzLx6JU45CXeFAUrw_KMhCPjN5ZQeDto8CTiSNpKnwVHs2ABxovwrV4Fw/exec';
+
+function getPostId() {
+  const path = window.location.pathname;
+  const filename = path.split('/').pop().replace('.html', '');
+  return filename || 'default';
+}
+
+class CommentSystem {
+  constructor() {
+    this.postId = getPostId();
+    this.isLoading = false;
+    this.isSubmitting = false;
+    this.comments = [];
+    this.init();
+  }
+
+  init() {
+    this.bindEvents();
+    this.loadComments();
+  }
+
+  bindEvents() {
+    // Character counter
+    const commentText = document.getElementById('comment-text');
+    const charCount = document.getElementById('char-count');
+    
+    if (commentText && charCount) {
+      commentText.addEventListener('input', (e) => {
+        const length = e.target.value.length;
+        const maxLength = 500;
+        charCount.textContent = `${length} / ${maxLength}`;
+        
+        if (length > maxLength * 0.9) {
+          charCount.className = 'character-count warning';
+        } else if (length >= maxLength) {
+          charCount.className = 'character-count error';
+        } else {
+          charCount.className = 'character-count';
+        }
+      });
+
+      commentText.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          this.submitComment();
+        }
+      });
+    }
+
+    // Submit button
+    const submitBtn = document.getElementById('comment-submit');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', () => {
+        this.submitComment();
+      });
+    }
+  }
+
+  showLoading(show = true) {
+    const loadingState = document.getElementById('loading-state');
+    if (loadingState) {
+      if (show) {
+        loadingState.innerHTML = `
+          <div class="loading-spinner"></div>
+          <p>Loading comments...</p>
+        `;
+        loadingState.style.display = 'flex';
+      } else {
+        loadingState.style.display = 'none';
+      }
+    }
+  }
+
+  
+  showMessage(message, type = 'success') {
+    // Show message above the comment form instead of in comments list
+    const form = document.querySelector('.comment-form');
+    if (!form) return;
+    
+    const existingMessage = document.querySelector('.message');
+    if (existingMessage) {
+      existingMessage.remove();
+    }
+
+    const messageEl = document.createElement('div');
+    messageEl.className = `message message-${type}`;
+    
+    const icon = type === 'success' ? 'fas fa-check-circle' : 
+                 type === 'error' ? 'fas fa-exclamation-circle' : 
+                 'fas fa-info-circle';
+    
+    messageEl.innerHTML = `
+      <i class="${icon}"></i>
+      <span>${message}</span>
+    `;
+    
+    // Insert message above the form
+    form.parentNode.insertBefore(messageEl, form);
+    
+    if (type === 'success') {
+      setTimeout(() => {
+        if (messageEl.parentNode) {
+          messageEl.remove();
+        }
+      }, 4000);
+    }
+  }
+
+  updateCommentsCount() {
+    const countEl = document.getElementById('comments-count');
+    if (countEl) {
+      countEl.textContent = this.comments.length;
+      
+      countEl.style.transform = 'scale(1.2)';
+      setTimeout(() => {
+        countEl.style.transform = 'scale(1)';
+      }, 200);
+    }
+  }
+
+  getInitials(name) {
+    if (!name || name.trim() === '' || name.trim() === 'Anonymous') {
+      return '👤';
+    }
+    return name.trim().split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+  }
+
+  formatDate(dateString) {
+    if (!dateString || dateString === 'Invalid Date' || dateString === '') {
+      return 'Just now';
+    }
+    
+    try {
+      const date = new Date(dateString);
+      
+      if (isNaN(date.getTime())) {
+        return 'Just now';
+      }
+      
+      const now = new Date();
+      const diffMs = now - date;
+      const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+      const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+      if (diffMs < 0) return 'Just now';
+      if (diffHours < 1) return 'Less than an hour ago';
+      if (diffHours < 24) return `${diffHours}h ago`;
+      if (diffDays < 7) return `${diffDays}d ago`;
+      
+      return date.toLocaleDateString('en-US', { 
+        month: 'short', 
+        day: 'numeric', 
+        year: date.getFullYear() !== now.getFullYear() ? 'numeric' : undefined 
+      });
+    } catch (error) {
+      console.warn('Error formatting date:', error);
+      return 'Just now';
+    }
+  }
+
+  displayComments(comments) {
+    const container = document.getElementById('comments-list');
+    if (!container) return;
+    
+    this.comments = comments || [];
+    this.updateCommentsCount();
+    
+    if (!comments || comments.length === 0) {
+      container.innerHTML = `
+        <div class="comments-empty">
+          <i class="far fa-comments"></i>
+          <h3>No comments yet</h3>
+          <p>Be the first to share your thoughts!</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Sort by newest first
+    const sortedComments = [...comments].sort((a, b) => {
+      const dateA = new Date(a.timestamp || 0);
+      const dateB = new Date(b.timestamp || 0);
+      return dateA - dateB;
+    });
+    
+    container.innerHTML = '';
+    
+    sortedComments.forEach((comment, index) => {
+      const commentEl = document.createElement('div');
+      commentEl.className = 'comment-item';
+      commentEl.style.animationDelay = `${index * 0.1}s`;
+      
+      // Handle the data properly - your backend returns exact field names
+      const name = this.escapeHtml((comment.name || '').trim() || 'Anonymous');
+      const content = this.escapeHtml((comment.comment || '').trim() || '[No content]');
+      const timestamp = this.formatDate(comment.timestamp);
+      const initials = this.getInitials(comment.name);
+      
+      commentEl.innerHTML = `
+        <div class="comment-header">
+          <div class="comment-author">
+            <div class="author-avatar">${initials}</div>
+            <span class="author-name">${name}</span>
+          </div>
+          <div class="comment-date">
+            <i class="far fa-clock"></i>
+            ${timestamp}
+          </div>
+        </div>
+        <div class="comment-content">${content}</div>
+      `;
+      
+      container.appendChild(commentEl);
+    });
+  }
+
+  showError(message) {
+    const container = document.getElementById('comments-list');
+    if (!container) return;
+    
+    container.innerHTML = `
+      <div class="message message-error">
+        <i class="fas fa-exclamation-circle"></i>
+        <div>
+          <strong>Unable to load comments</strong><br>
+          ${message}
+          <br>
+          <button class="retry-btn" onclick="commentSystem.loadComments()">
+            <i class="fas fa-redo"></i> Try Again
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  loadComments() {
+    if (this.isLoading) return;
+    
+    this.isLoading = true;
+    this.showLoading(true);
+    
+    const callbackName = 'displayComments_' + Date.now();
+    const timeoutId = setTimeout(() => {
+      this.isLoading = false;
+      this.showError('Request timed out. Please check your connection and try again.');
+      if (window[callbackName]) {
+        delete window[callbackName];
+      }
+    }, 15000);
+
+    window[callbackName] = (data) => {
+      clearTimeout(timeoutId);
+      this.isLoading = false;
+      this.showLoading(false);
+      
+      if (data && data.error) {
+        this.showError(data.error);
+      } else {
+        this.displayComments(data);
+      }
+      
+      delete window[callbackName];
+    };
+
+    // Remove existing scripts
+    const existingScripts = document.querySelectorAll('script[src*="script.google.com"]');
+    existingScripts.forEach(script => script.remove());
+
+    const script = document.createElement('script');
+    script.src = `${SHEET_URL}?callback=${callbackName}&postId=${encodeURIComponent(this.postId)}&t=${Date.now()}`;
+    script.onerror = () => {
+      clearTimeout(timeoutId);
+      this.isLoading = false;
+      this.showLoading(false);
+      this.showError('Failed to connect to the server. Please check your internet connection.');
+      delete window[callbackName];
+    };
+
+    document.head.appendChild(script);
+  }
+
+  setSubmitButtonState(isSubmitting) {
+    const btn = document.getElementById('comment-submit');
+    if (!btn) return;
+    
+    btn.disabled = isSubmitting;
+    
+    if (isSubmitting) {
+      btn.innerHTML = '<div class="spinner"></div><span>Posting...</span>';
+    } else {
+      btn.innerHTML = '<i class="fas fa-paper-plane"></i><span>Post Comment</span>';
+    }
+  }
+
+  submitComment() {
+    if (this.isSubmitting) return;
+
+    const nameInput = document.getElementById('comment-name');
+    const commentInput = document.getElementById('comment-text');
+    
+    if (!nameInput || !commentInput) {
+      console.error('Form inputs not found');
+      return;
+    }
+    
+    const name = nameInput.value.trim() || 'Anonymous';
+    const comment = commentInput.value.trim();
+    
+    // Validation
+    if (!comment) {
+      this.showMessage('Please enter a comment before submitting.', 'error');
+      commentInput.focus();
+      return;
+    }
+
+    if (comment.length > 500) {
+      this.showMessage('Comment is too long. Please keep it under 500 characters.', 'error');
+      return;
+    }
+
+    this.isSubmitting = true;
+    this.setSubmitButtonState(true);
+
+    // Create form for submission
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = SHEET_URL;
+    form.style.display = 'none';
+
+    // Add fields - make sure field names match what your backend expects
+    const fields = {
+      postId: this.postId,
+      name: name,
+      comment: comment
+    };
+
+    Object.entries(fields).forEach(([key, value]) => {
+      const input = document.createElement('input');
+      input.name = key;
+      input.value = value;
+      form.appendChild(input);
+    });
+
+    // Submit via iframe
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.name = 'comment_submit_' + Date.now();
+    form.target = iframe.name;
+
+    let timeoutId = setTimeout(() => {
+      this.isSubmitting = false;
+      this.setSubmitButtonState(false);
+      this.showMessage('Submission timed out. Please try again.', 'error');
+      this.cleanup(form, iframe);
+    }, 10000);
+
+    iframe.onload = () => {
+      clearTimeout(timeoutId);
+      this.isSubmitting = false;
+      this.setSubmitButtonState(false);
+      
+      // Clear form
+      nameInput.value = '';
+      commentInput.value = '';
+      const charCount = document.getElementById('char-count');
+      if (charCount) {
+        charCount.textContent = '0 / 500';
+        charCount.className = 'character-count';
+      }
+      
+      this.showMessage('Comment posted successfully! 🎉', 'success');
+      
+      // Reload comments after a delay
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
+      
+      this.cleanup(form, iframe);
+    };
+
+    iframe.onerror = () => {
+      clearTimeout(timeoutId);
+      this.isSubmitting = false;
+      this.setSubmitButtonState(false);
+      this.showMessage('Failed to submit comment. Please try again.', 'error');
+      this.cleanup(form, iframe);
+    };
+
+    // Add to page and submit
+    document.body.appendChild(iframe);
+    document.body.appendChild(form);
+    form.submit();
+  }
+
+  cleanup(form, iframe) {
+    setTimeout(() => {
+      if (form && form.parentNode) form.remove();
+      if (iframe && iframe.parentNode) iframe.remove();
+    }, 3000);
+  }
+
+  escapeHtml(text) {
+    if (!text) return '';
+    const div = document.createElement('div');
+    div.textContent = text.toString();
+    return div.innerHTML;
+  }
+}
+
+// Initialize the comment system
+let commentSystem;
+document.addEventListener('DOMContentLoaded', () => {
+  commentSystem = new CommentSystem();
+});
+</script>
+
 
   <!-- Article Navigation -->
   <div class="article-nav">
