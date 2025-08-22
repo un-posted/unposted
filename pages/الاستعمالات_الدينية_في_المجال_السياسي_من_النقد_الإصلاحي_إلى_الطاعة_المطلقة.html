@@ -851,6 +851,23 @@ Support our writers and reach engaged readers — partner with us today!
   </div>
 
   <br>
+
+  <!-- You can also add upvoting at the end of the article -->
+    <div class="upvote-section" style="margin-top: 40px;">
+        <div style="flex-grow: 1;">
+            <h3 style="margin: 0 0 5px 0;">Did you find this article thought-provoking?</h3>
+            <p style="margin: 0; color: #666; font-size: 14px;">Let others know by upvoting!</p>
+        </div>
+        <div class="vote-info">
+            <div class="vote-count">
+                <span id="upvoteCount">0</span>
+            </div>
+            <div class="vote-label">votes</div>
+        </div>
+        <button id="upvoteBtn" class="upvote-button">
+            👍 Upvote
+        </button>
+    </div>
   <!-- Share button -->
   <div style="margin: 2rem 0;">
     <a href="#" id="fb-share-btn" class="nav-btn" style="background:#3b5998;">Share on Facebook</a>
@@ -1444,5 +1461,375 @@ document.addEventListener('click', (e) => {
   }
 });
 </script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { 
+  getFirestore, 
+  doc, 
+  setDoc, 
+  getDoc, 
+  updateDoc, 
+  arrayUnion, 
+  arrayRemove 
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCdo7Ckom7YRPYHXhT0cUkK6gf0-LKizbQ",
+  authDomain: "unposted-7c211.firebaseapp.com",
+  projectId: "unposted-7c211",
+  storageBucket: "unposted-7c211.firebasestorage.app",
+  messagingSenderId: "264362136100",
+  appId: "1:264362136100:web:7d567e5ade219b4d1cbeb1",
+  measurementId: "G-YH114FP5NF"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+let userId = null;
+let pollInterval = null;
+
+// Status display
+function showStatus(message, type = 'info') {
+  const statusEl = document.getElementById('connectionStatus');
+  if (statusEl) {
+    statusEl.textContent = message;
+    statusEl.className = `status ${type}`;
+    setTimeout(() => {
+      statusEl.textContent = '';
+      statusEl.className = 'status';
+    }, 3000);
+  }
+  console.log(`[${type.toUpperCase()}] ${message}`);
+}
+
+// Update UI
+function updateUI(data) {
+  const voters = data?.voters || [];
+  const count = voters.length;
+  const hasVoted = userId && voters.includes(userId);
+
+  const upvoteCount = document.getElementById("upvoteCount");
+  const upvoteBtn = document.getElementById("upvoteBtn");
+
+  if (upvoteCount) {
+    upvoteCount.textContent = count.toString();
+  }
+
+  if (upvoteBtn) {
+    upvoteBtn.disabled = false;
+    upvoteBtn.classList.toggle("cancel", hasVoted);
+    upvoteBtn.textContent = hasVoted ? "👍 Cancel" : "👍 Upvote";
+  }
+}
+
+// Fetch current vote data
+async function fetchVoteData(storyId) {
+  try {
+    const docRef = doc(db, "upvotes", storyId);
+    const docSnap = await getDoc(docRef);
+    
+    if (docSnap.exists()) {
+      const data = docSnap.data();
+      updateUI(data);
+      showStatus('Updated', 'success');
+    } else {
+      updateUI({ voters: [] });
+      showStatus('No votes yet', 'info');
+    }
+  } catch (error) {
+    console.error('Fetch failed:', error);
+    showStatus('Connection error', 'warning');
+  }
+}
+
+// Handle voting
+async function handleVote(storyId, title) {
+  const upvoteBtn = document.getElementById("upvoteBtn");
+  if (upvoteBtn) upvoteBtn.disabled = true;
+
+  try {
+    const docRef = doc(db, "upvotes", storyId);
+    const docSnap = await getDoc(docRef);
+    
+    if (!docSnap.exists()) {
+      // Create new document
+      await setDoc(docRef, {
+        voters: [userId],
+        title: title,
+        created: new Date().toISOString()
+      });
+      updateUI({ voters: [userId] });
+    } else {
+      // Update existing document
+      const data = docSnap.data();
+      const voters = data.voters || [];
+      
+      if (voters.includes(userId)) {
+        // Remove vote
+        await updateDoc(docRef, {
+          voters: arrayRemove(userId),
+          lastModified: new Date().toISOString()
+        });
+        updateUI({ voters: voters.filter(v => v !== userId) });
+      } else {
+        // Add vote
+        await updateDoc(docRef, {
+          voters: arrayUnion(userId),
+          lastModified: new Date().toISOString()
+        });
+        updateUI({ voters: [...voters, userId] });
+      }
+    }
+
+    showStatus('Vote updated!', 'success');
+    
+  } catch (error) {
+    console.error('Vote failed:', error);
+    
+    // Check for specific error types
+    if (error.code === 'permission-denied') {
+      showStatus('Permission denied. Check Firestore rules.', 'error');
+    } else if (error.code === 'unavailable') {
+      showStatus('Firestore unavailable. Try again.', 'error');
+    } else {
+      showStatus('Failed to vote. Try again.', 'error');
+    }
+    
+    if (upvoteBtn) upvoteBtn.disabled = false;
+  }
+}
+
+// Wait for DOM
+function waitForDOM() {
+  return new Promise(resolve => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', resolve);
+    } else {
+      resolve();
+    }
+  });
+}
+
+// Main initialization
+async function init() {
+  try {
+    showStatus('Loading...', 'info');
+    
+    // Wait for DOM
+    await waitForDOM();
+    
+    // Check for required elements
+    const upvoteBtn = document.getElementById("upvoteBtn");
+    const upvoteCount = document.getElementById("upvoteCount");
+    
+    if (!upvoteBtn || !upvoteCount) {
+      showStatus('Missing UI elements', 'error');
+      console.error('Required elements not found. Make sure you have:');
+      console.error('<button id="upvoteBtn">👍 Upvote</button>');
+      console.error('<span id="upvoteCount">0</span>');
+      return;
+    }
+
+    // Authenticate
+    try {
+      const userCred = await signInAnonymously(auth);
+      userId = userCred.user.uid;
+      console.log('Authenticated successfully');
+      showStatus('Authenticated', 'success');
+    } catch (authError) {
+      showStatus('Authentication failed', 'error');
+      console.error('Auth error:', authError);
+      return;
+    }
+
+    // Get story information
+    const rawTitle = "al ista3malat diniya fi al majal siyessi";
+    
+    const storyId = rawTitle
+      .replace(/[^a-zA-Z0-9\s_-]/g, '')
+      .replace(/\s+/g, '_')
+      .toLowerCase()
+      .substring(0, 100);
+
+    console.log('Story ID:', storyId);
+
+    // Initial data load
+    await fetchVoteData(storyId);
+
+    // Set up periodic polling (every 15 seconds)
+    pollInterval = setInterval(() => fetchVoteData(storyId), 15000);
+
+    // Set up click handler
+    upvoteBtn.addEventListener("click", () => handleVote(storyId, rawTitle));
+
+    showStatus('Ready!', 'success');
+
+  } catch (error) {
+    console.error('Initialization failed:', error);
+    showStatus('Setup failed', 'error');
+  }
+}
+
+// Cleanup
+window.addEventListener('beforeunload', () => {
+  if (pollInterval) {
+    clearInterval(pollInterval);
+  }
+});
+
+// Start the app
+init();
+</script>
+
+<!-- Status display -->
+<div id="connectionStatus" class="status"></div>
+
+<style>
+/* Upvote Section Styles */
+        .upvote-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #f7a600;
+        }
+
+        .upvote-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #f7a600;
+            color: white;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .upvote-button:hover:not(:disabled) {
+            background-color: #f7a600;
+            transform: translateY(-1px);
+        }
+
+        .upvote-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .upvote-button.cancel {
+            background-color: #dc3545;
+        }
+
+        .upvote-button.cancel:hover:not(:disabled) {
+            background-color: #c82333;
+        }
+
+        .vote-count {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .vote-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Alternative compact style */
+        .upvote-compact {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+        }
+
+        .upvote-compact .upvote-button {
+            padding: 6px 12px;
+            font-size: 14px;
+            border-radius: 15px;
+        }
+
+        .upvote-compact .vote-count {
+            font-size: 16px;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        /* Card style */
+        .upvote-card {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .upvote-card .vote-count {
+            font-size: 24px;
+            color: #f7a600;
+            margin-bottom: 10px;
+        }
+
+        .upvote-card .vote-label {
+            margin-bottom: 15px;
+        }
+
+        /* Status indicator */
+        .status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            max-width: 200px;
+        }
+
+        .status.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+</style>
+
+
 </body>
 </html>
