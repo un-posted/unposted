@@ -760,6 +760,61 @@ footer { text-align: center; padding: 2rem; background: #fff; font-size: 0.9rem;
   color: var(--text-light);
 }
 
+
+
+/* Upvote System Styles */
+    .upvote-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: linear-gradient(135deg, #fff, #f8fafc);
+      border-radius: 16px;
+      box-shadow: var(--card-shadow);
+    }
+
+    #upvoteBtn {
+      background: linear-gradient(135deg, var(--main-color), #f7a600);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 4px 15px rgba(247, 200, 67, 0.3);
+    }
+
+    #upvoteBtn:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 8px 25px rgba(247, 200, 67, 0.4);
+    }
+
+    #upvoteBtn.cancel {
+      background: transparent;
+      border: 2px solid var(--main-color);
+      color: var(--main-color);
+    }
+
+    #upvoteBtn.cancel:hover {
+      background: var(--main-color);
+      color: white;
+    }
+
+    #upvoteCount {
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: black;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
 </style>
 </head>
 <body>
@@ -833,6 +888,9 @@ footer { text-align: center; padding: 2rem; background: #fff; font-size: 0.9rem;
     </div>
 <br>
     <div class="share-buttons" style="margin: 2rem 0; text-align: center;">
+      <div class="upvote-wrapper">
+  <button id="upvoteBtn">👍 Upvote <span id="upvoteCount">0</span></button>
+</div>
       <a href="#" id="fb-share-btn" class="nav-btn" style="background:#3b5998; color:#fff; border:none;">
         <i class="fab fa-facebook-f"></i> Share on Facebook
       </a>
@@ -1432,5 +1490,281 @@ const btnAnn = document.getElementById('subscribe-btn-navbar-a');
     openModal();
   });
 </script>
+
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { 
+  getFirestore, 
+  doc, 
+  setDoc, 
+  getDoc, 
+  updateDoc, 
+  onSnapshot, 
+  arrayUnion, 
+  arrayRemove,
+  enableNetwork,
+  disableNetwork 
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCdo7Ckom7YRPYHXhT0cUkK6gf0-LKizbQ",
+  authDomain: "unposted-7c211.firebaseapp.com",
+  projectId: "unposted-7c211",
+  storageBucket: "unposted-7c211.firebasestorage.app",
+  messagingSenderId: "264362136100",
+  appId: "1:264362136100:web:7d567e5ade219b4d1cbeb1",
+  measurementId: "G-YH114FP5NF"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+let userId = null;
+let unsubscribe = null;
+let isOnline = true;
+
+// Wait for DOM to be ready
+function waitForDOM() {
+  return new Promise(resolve => {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', resolve);
+    } else {
+      resolve();
+    }
+  });
+}
+
+// Improved title sanitization
+function sanitizeTitle(title) {
+  return title
+    .replace(/[^a-zA-Z0-9\s_-]/g, '')
+    .replace(/\s+/g, '_')
+    .substring(0, 100) // Firestore document ID limit
+    .toLowerCase();
+}
+
+// Network status monitoring
+function setupNetworkMonitoring() {
+  window.addEventListener('online', async () => {
+    console.log('Network back online, reconnecting...');
+    try {
+      await enableNetwork(db);
+      isOnline = true;
+      showStatus('Connected', 'success');
+    } catch (error) {
+      console.error('Failed to enable network:', error);
+    }
+  });
+
+  window.addEventListener('offline', async () => {
+    console.log('Network offline');
+    isOnline = false;
+    showStatus('Offline', 'warning');
+  });
+}
+
+// Status display
+function showStatus(message, type = 'info') {
+  const statusEl = document.getElementById('connectionStatus');
+  if (statusEl) {
+    statusEl.textContent = message;
+    statusEl.className = `status ${type}`;
+    setTimeout(() => {
+      statusEl.textContent = '';
+      statusEl.className = 'status';
+    }, 3000);
+  }
+}
+
+// Retry mechanism for Firebase operations
+async function retryOperation(operation, maxRetries = 3, delay = 1000) {
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      return await operation();
+    } catch (error) {
+      console.warn(`Attempt ${i + 1} failed:`, error);
+      if (i === maxRetries - 1) throw error;
+      await new Promise(resolve => setTimeout(resolve, delay * (i + 1)));
+    }
+  }
+}
+
+// Initialize authentication
+async function initAuth() {
+  try {
+    const userCred = await signInAnonymously(auth);
+    userId = userCred.user.uid;
+    console.log('Authenticated successfully');
+    return true;
+  } catch (error) {
+    console.error('Auth failed:', error);
+    showStatus('Authentication failed', 'error');
+    return false;
+  }
+}
+
+// Initialize upvote system
+async function initUpvote() {
+  await waitForDOM();
+  
+  const upvoteBtn = document.getElementById("upvoteBtn");
+  const upvoteCount = document.getElementById("upvoteCount");
+  
+  if (!upvoteBtn || !upvoteCount) {
+    console.error('Required DOM elements not found');
+    return;
+  }
+
+  // Get story title and create ID
+  const rawTitle = document.querySelector(".article-title")?.innerText || 
+                   document.querySelector("h1")?.innerText || 
+                   document.title || 
+                   "untitled";
+  
+  const storyId = sanitizeTitle(rawTitle);
+  const storyRef = doc(db, "upvotes", storyId);
+
+  console.log('Story ID:', storyId);
+
+  // Setup realtime listener with error handling
+  function setupListener() {
+    if (unsubscribe) unsubscribe(); // Clean up previous listener
+    
+    unsubscribe = onSnapshot(storyRef, 
+      (snap) => {
+        try {
+          if (!snap.exists()) {
+            upvoteCount.textContent = "0";
+            upvoteBtn.classList.remove("cancel");
+            upvoteBtn.textContent = "👍 Upvote";
+            upvoteBtn.disabled = false;
+            return;
+          }
+
+          const data = snap.data();
+          const voters = data.voters || [];
+          
+          upvoteCount.textContent = voters.length.toString();
+          
+          if (voters.includes(userId)) {
+            upvoteBtn.classList.add("cancel");
+            upvoteBtn.textContent = "👍 Cancel";
+          } else {
+            upvoteBtn.classList.remove("cancel");
+            upvoteBtn.textContent = "👍 Upvote";
+          }
+          upvoteBtn.disabled = false;
+        } catch (error) {
+          console.error('Error processing snapshot:', error);
+        }
+      },
+      (error) => {
+        console.error('Snapshot listener error:', error);
+        showStatus('Connection error, retrying...', 'error');
+        
+        // Retry listener setup after delay
+        setTimeout(() => {
+          if (isOnline) {
+            console.log('Retrying listener setup...');
+            setupListener();
+          }
+        }, 5000);
+      }
+    );
+  }
+
+  // Setup the listener
+  setupListener();
+
+  // Click handler with improved error handling
+  upvoteBtn.addEventListener("click", async () => {
+    if (!userId) {
+      showStatus("Please wait, still loading...", 'warning');
+      return;
+    }
+
+    if (!isOnline) {
+      showStatus("You're offline. Changes will sync when reconnected.", 'warning');
+      return;
+    }
+
+    upvoteBtn.disabled = true;
+    
+    try {
+      await retryOperation(async () => {
+        const snap = await getDoc(storyRef);
+        
+        if (!snap.exists()) {
+          await setDoc(storyRef, { 
+            voters: [userId], 
+            title: rawTitle,
+            created: new Date().toISOString()
+          });
+          return;
+        }
+
+        const voters = snap.data().voters || [];
+        
+        if (voters.includes(userId)) {
+          await updateDoc(storyRef, { 
+            voters: arrayRemove(userId),
+            lastModified: new Date().toISOString()
+          });
+        } else {
+          await updateDoc(storyRef, { 
+            voters: arrayUnion(userId),
+            lastModified: new Date().toISOString()
+          });
+        }
+      });
+      
+      showStatus('Updated successfully', 'success');
+    } catch (error) {
+      console.error('Upvote operation failed:', error);
+      showStatus('Failed to update. Please try again.', 'error');
+      upvoteBtn.disabled = false;
+    }
+  });
+}
+
+// Cleanup function
+function cleanup() {
+  if (unsubscribe) {
+    unsubscribe();
+    unsubscribe = null;
+  }
+}
+
+// Main initialization
+async function init() {
+  try {
+    setupNetworkMonitoring();
+    
+    const authSuccess = await initAuth();
+    if (!authSuccess) return;
+    
+    await initUpvote();
+    
+    showStatus('Ready', 'success');
+  } catch (error) {
+    console.error('Initialization failed:', error);
+    showStatus('Initialization failed', 'error');
+  }
+}
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', cleanup);
+
+// Start the application
+init();
+</script>
+
+
+
+
+
 </body>
 </html>
