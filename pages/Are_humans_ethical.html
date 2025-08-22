@@ -688,6 +688,78 @@ footer { text-align: center; padding: 2rem; background: #fff; font-size: 0.9rem;
         justify-content: center;
       }
     }
+
+
+    /* Badges Section */
+.badges-section {
+  margin: 3rem auto;
+  text-align: center;
+}
+
+.badges-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.badges-title::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background: var(--main-color);
+  margin: 0.5rem auto 0;
+  border-radius: 2px;
+}
+
+.badges-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.badge-card {
+  background: #fff;
+  border: 1px solid rgba(247, 200, 67, 0.15);
+  border-radius: 14px;
+  padding: 1.2rem;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--card-shadow);
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.badge-card.earned {
+  border-color: var(--main-color);
+  opacity: 1;
+  box-shadow: var(--card-shadow-hover);
+  transform: scale(1.02);
+}
+
+.badge-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.badge-icon {
+  font-size: 2.2rem;
+}
+
+.badge-info h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.badge-info p {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
 </style>
 </head>
 <body>
@@ -724,9 +796,12 @@ footer { text-align: center; padding: 2rem; background: #fff; font-size: 0.9rem;
     </div>
   </div>
 </nav>
+<!-- Gamification / Badges Section -->
+  
 
   <!-- ✅ Article -->
-  <div class="article-container">
+  
+  </div>
     <div class="article-emoji">&#128533;</div>
     <div class="article-category">Society</div>
     <h1 class="article-title">Are humans ethical?</h1>
