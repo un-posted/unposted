@@ -152,6 +152,9 @@
       transform: translateY(-2px);
     }
 
+    .cta-btn-read { background: transparent; color: var(--main-color);; padding: 0.7rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; border: 2px solid var(--main-color);}
+.cta-btn-read:hover { background: var(--main-color); color: var(--text-dark);}
+
     /* ✅ Mobile styles */
     @media (max-width: 768px) {
       .navbar {
@@ -204,6 +207,10 @@
         padding: 0.6rem 1rem;
         font-size: 0.7rem;
       }
+      .navbar-buttons .cta-btn-read {
+    padding: 0.6rem 1rem;
+    font-size: 0.7rem;
+  }
     }
 
     @media (max-width: 480px) {
@@ -215,6 +222,10 @@
         padding: 0.5rem 0.8rem;
         font-size: 0.8rem;
       }
+      .navbar-buttons .cta-btn-read {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.8rem;
+  }
     }
 
     
@@ -429,6 +440,7 @@
     <!-- Buttons -->
     <div class="navbar-buttons">
       <a href="./write-your-story.html" class="cta-btn">✨Write</a>
+      <a href="./stories.html" class="cta-btn-read">Read</a>
       <a href="#" id="subscribe-btn-navbar" class="cta-btn">📬Subscribe</a>
     </div>
   </div>
